@@ -1,8 +1,12 @@
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
+
+font = ImageFont.truetype("RobotoMono-Regular.ttf", 50)
 
 img = Image.open('pil_text.png')
+img_w, img_h = img.size
+background = Image.new('RGB', (1440, 900), (255, 0 , 0))
+bg_w, bg_h = background.size
+offset = ((bg_w - img_w) // 2, (bg_h - img_h) // 2)
+background.paste(img, offset)
 
-d = ImageDraw.Draw(img)
-d.text((5, 5), "Hello World", fill=(255, 0, 0))
-
-img.save('pil_text.png')
+background.save('background.png')
