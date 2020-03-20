@@ -37,7 +37,6 @@ def _render_project_subtitle(subtitle):
     if fontsize > 25:
         fontsize = 25
     font = ImageFont.truetype("res/font/RobotoMono-Regular.ttf", fontsize)
-    print(font.getsize("d"))
     draw = ImageDraw.Draw(img)
     draw.text((60, 310), subtitle, (166, 166, 166), font=font)
 
@@ -74,9 +73,25 @@ def _render_dev_account_url(name):
     if fontsize > 30:
         fontsize = 30
     font = ImageFont.truetype("res/font/RobotoMono-Regular.ttf", fontsize)
-    print(font.getsize("d"))
     draw = ImageDraw.Draw(img)
     draw.text((200, 960), name, (92, 225, 230), font=font)
+
+
+def _render_description(desc):
+    font = ImageFont.truetype("res/font/RobotoMono-Regular.ttf", 30)
+    words = desc.split(" ")
+    words = [a + ' ' for a in words]
+    curr_x = 60
+    curr_y = 420
+    draw = ImageDraw.Draw(img)
+
+    for word in words:
+        if (font.getsize(word)[0] + curr_x) > 1020:
+            curr_x = 60
+            curr_y = curr_y + 5 + font.getsize(word)[1]
+
+        draw.text((curr_x, curr_y), word, (217, 217, 217), font=font)
+        curr_x = curr_x + font.getsize(word)[0]
 
 
 def create_page_1(post_number):
@@ -87,4 +102,5 @@ def create_page_1(post_number):
     _render_dev_avatar(None)
     _render_dev_username('liyasthomas')
     _render_dev_account_url('liyasthomas')
+    _render_description('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum')
     img.save('generated/page_1_gen.png')
