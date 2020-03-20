@@ -50,8 +50,8 @@ def _render_dev_avatar(url):
     img_new = Image.open('res/img/avatar.png', 'r')
     img_w, img_h = img_new.size
     img_new.thumbnail((100, 100), Image.ANTIALIAS)
-    img_new.save('generated/avatar_new.png')
-    img_new = Image.open('generated/avatar_new.png', 'r')
+    # img_new.save('generated/avatar_new.png')
+    # img_new = Image.open('generated/avatar_new.png', 'r')
     output = ImageOps.fit(img_new, mask.size, centering=(0.5, 0.5))
     output.putalpha(mask)
     output.save('generated/avatar_new.png')
